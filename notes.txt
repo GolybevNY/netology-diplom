@@ -1,0 +1,61 @@
+yc init
+'netology-diplom' (id = b1ge8pkr6bvdj1t5qd98)
+yc iam service-account create --name my-robo --folder-id b1ge8pkr6bvdj1t5qd98
+yc iam service-account list
++----------------------+---------+
+|          ID          |  NAME   |
++----------------------+---------+
+| aje5em2c3e1jgrlku1dq | my-robo |
++----------------------+---------+
+gny@gny-HP-Notebook:~/rep/netology-diplom(main)$ yc iam access-key create --service-account-name my-robo
+access_key:
+  id: aje29uj70nfq88injfhp
+  service_account_id: aje5em2c3e1jgrlku1dq
+  created_at: "2022-10-02T09:20:58.712068369Z"
+  key_id: YCAJEU6sVrRuH1-7tqCmgtl36
+secret: 
+
+gny@gny-HP-Notebook:~/rep/netology-diplom(main)$ yc iam service-account add-access-binding my-robo --role editor --service-account-id aje5em2c3e1jgrlku1dq
+effective_deltas:
+  - action: ADD
+    access_binding:
+      role_id: editor
+      subject:
+        id: aje5em2c3e1jgrlku1dq
+        type: serviceAccount
+
+gny@gny-HP-Notebook:~/rep/netology-diplom(main)$ yc iam service-account list
++----------------------+---------+
+|          ID          |  NAME   |
++----------------------+---------+
+| aje5em2c3e1jgrlku1dq | my-robo |
+| ajedhafuajleavpctkmf | robot   |
++----------------------+---------+
+
+gny@gny-HP-Notebook:~/rep/netology-diplom(main)$ yc iam access-key create --service-account-name robot
+access_key:
+  id: aje3d5mhnime69vfp0o2
+  service_account_id: ajedhafuajleavpctkmf
+  created_at: "2022-10-02T09:40:35.256863455Z"
+  key_id: YCAJEqMdp8vbHQ-Ds-gjwEaBs
+secret: 
+
+gny@gny-HP-Notebook:~/rep/netology-diplom(main)$ yc iam key create  --service-account-name robot --output key.json --folder-id b1ge8pkr6bvdj1t5qd98
+id: ajejt5obr9c313heenke
+service_account_id: ajedhafuajleavpctkmf
+created_at: "2022-10-02T09:46:41.286909047Z"
+key_algorithm: RSA_2048
+
+yc compute instance get --full fhm905ml369g9ktnh7jn
+
+
+ssh-keygen
+#SSH connection:
+#Var1:
+  scp .ssh/id_rsa ubuntu@62.84.114.36:/home/ubuntu/.ssh/
+  ssh -t ubuntu@62.84.114.36 ssh ubuntu@db01.golubevny
+
+#Var2:
+  ssh -L2222:db01.golubevny:22 ubuntu@62.84.114.36
+  ssh -p 2222 ubuntu@localhost
+
